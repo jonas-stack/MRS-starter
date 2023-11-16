@@ -3,6 +3,8 @@ package easv.mrs.DAL;
 import easv.mrs.BE.Movie;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 public class MovieDAO implements IMovieDataAccess {
@@ -10,7 +12,15 @@ public class MovieDAO implements IMovieDataAccess {
     private static final String MOVIES_FILE = "data/movie_titles.txt";
 
     public List<Movie> getAllMovies() throws IOException {
-        return null;
+       try {
+           List<String> lines = Files.readAllLines(Path.of(MOVIES_FILE));
+           for (String line : lines){
+               System.out.println(line);
+           }
+       }catch (IOException e){
+           e.printStackTrace();
+       }
+       return null;
     }
 
     @Override
