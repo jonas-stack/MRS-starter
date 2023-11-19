@@ -6,10 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,11 +20,7 @@ public class MovieViewController implements Initializable {
     public ListView<Movie> lstMovies;
 
     @FXML
-    private TextField txtTitle;
-    @FXML
-    private TextField txtYear;
-    @FXML
-    private Button btnCreate;
+    private TextField txtTitle, txtYear;
 
     private MovieModel movieModel;
 
@@ -32,7 +28,8 @@ public class MovieViewController implements Initializable {
 
         try {
             movieModel = new MovieModel();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             displayError(e);
             e.printStackTrace();
         }
@@ -63,18 +60,24 @@ public class MovieViewController implements Initializable {
         alert.showAndWait();
     }
 
-    public void createNewMovie(ActionEvent actionEvent) {
 
+    public void createNewMovie(ActionEvent actionEvent) {
+        //
         String title = txtTitle.getText();
         int year = Integer.parseInt(txtYear.getText());
 
-        Movie newMovie = new Movie(-1, year, title); // movie constructor vil have id med, jeg vil ikke ergo -1
+        Movie newMovie = new Movie(-1, year, title);
 
         try {
             movieModel.createNewMovie(newMovie);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             displayError(e);
             e.printStackTrace();
         }
+
+
+
+
     }
 }

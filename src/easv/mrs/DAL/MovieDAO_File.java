@@ -5,16 +5,18 @@ import easv.mrs.BE.Movie;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.APPEND;
+
 
 public class MovieDAO_File implements IMovieDataAccess {
 
     private static final String MOVIES_FILE = "data/movie_titles.txt";
 
     public List<Movie> getAllMovies() throws IOException {
+
         // Read all lines from file
         List<String> lines = Files.readAllLines(Path.of(MOVIES_FILE));
         List<Movie> movies = new ArrayList<>();
@@ -37,7 +39,6 @@ public class MovieDAO_File implements IMovieDataAccess {
             movies.add(movie);
         }
 
-
         return movies;
     }
 
@@ -53,9 +54,11 @@ public class MovieDAO_File implements IMovieDataAccess {
             String newMovieLine = nextId + "," + movie.getYear() + "," + movie.getTitle();
             Files.write(Path.of(MOVIES_FILE), (newMovieLine + "\r\n").getBytes(), APPEND);
 
-            return new Movie(nextId, movie.getYear(),movie.getTitle());
+            return new Movie(nextId, movie.getYear(), movie.getTitle());
         }
+
         return null;
+
     }
 
     @Override

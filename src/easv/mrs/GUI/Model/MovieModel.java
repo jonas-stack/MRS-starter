@@ -32,7 +32,11 @@ public class MovieModel {
     }
 
     public void createNewMovie(Movie newMovie) throws Exception {
-        movieManager.createNewMovie(newMovie);
-        moviesToBeViewed.add(newMovie);
+        Movie m = movieManager.createNewMovie(newMovie);
+        moviesToBeViewed.add(m);
+
+        // loading entire file again... not optimal
+        //moviesToBeViewed.clear();
+        //moviesToBeViewed.addAll(movieManager.getAllMovies());
     }
 }

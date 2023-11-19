@@ -28,7 +28,7 @@ public class MovieManager {
         return searchResult;
     }
 
-    public void createNewMovie(Movie newMovie) throws Exception {
-        movieDAO.createMovie(newMovie);
+    public Movie createNewMovie(Movie newMovie) throws Exception {
+        return movieDAO.createMovie(newMovie);
     }
 }

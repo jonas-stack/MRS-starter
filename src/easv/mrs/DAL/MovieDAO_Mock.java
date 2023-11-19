@@ -20,7 +20,6 @@ public class MovieDAO_Mock implements IMovieDataAccess {
 
     @Override
     public List<Movie> getAllMovies() {
-
         return allMovies;
     }
 
