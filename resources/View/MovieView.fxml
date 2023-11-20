@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" prefHeight="276.0" prefWidth="247.0" vgap="10" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.mrs.GUI.Controller.MovieViewController">
+<GridPane alignment="center" hgap="10" prefHeight="276.0" prefWidth="247.0" vgap="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easv.mrs.GUI.Controller.MovieViewController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -22,8 +22,8 @@
       <TextField fx:id="txtMovieSearch" GridPane.rowIndex="1" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="txtTitle" prefHeight="26.0" prefWidth="92.0" />
-            <TextField fx:id="txtYear" prefHeight="26.0" prefWidth="95.0" />
+            <TextField fx:id="txtTitle" prefHeight="26.0" prefWidth="92.0" promptText="Title" />
+            <TextField fx:id="txtYear" prefHeight="26.0" prefWidth="95.0" promptText="Year" />
             <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#createNewMovie" text="Create" />
          </children>
       </HBox>
