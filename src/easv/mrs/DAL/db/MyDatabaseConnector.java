@@ -1,34 +1,35 @@
 package easv.mrs.DAL.db;
 
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Properties;
+
 public class MyDatabaseConnector {
 
-<<<<<<< Updated upstream
-
-    //Class will easv.mrs.be included when we start working on DATABASES
-    /*
-=======
     private static final String PROP_FILE = "config/config.settings";
     //Class will easv.mrs.be included when we start working on DATABASES
 
->>>>>>> Stashed changes
     private SQLServerDataSource dataSource;
 
-    public MyDatabaseConnector()
-    {
+    public MyDatabaseConnector() throws IOException {
+        Properties databaseProperties = new Properties();
+        databaseProperties.load(new FileInputStream(new File(PROP_FILE)));
+
         dataSource = new SQLServerDataSource();
-<<<<<<< Updated upstream
-        dataSource.setServerName("");
-        dataSource.setDatabaseName("");
-        dataSource.setUser("");
-        dataSource.setPassword("");
-=======
         dataSource.setServerName(databaseProperties.getProperty("Server"));
         dataSource.setDatabaseName(databaseProperties.getProperty("Database"));
         dataSource.setUser(databaseProperties.getProperty("User"));
         dataSource.setPassword(databaseProperties.getProperty("Password"));
->>>>>>> Stashed changes
         dataSource.setPortNumber(1433);
+        dataSource.setTrustServerCertificate(true);
     }
 
     public Connection getConnection() throws SQLServerException {
@@ -36,7 +37,7 @@ public class MyDatabaseConnector {
     }
 
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
 
         MyDatabaseConnector databaseConnector = new MyDatabaseConnector();
 
@@ -45,10 +46,8 @@ public class MyDatabaseConnector {
             System.out.println("Is it open? " + !connection.isClosed());
 
         } //Connection gets closed here
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-<<<<<<< Updated upstream
-    */
-
-=======
->>>>>>> Stashed changes
 }

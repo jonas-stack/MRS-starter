@@ -3,51 +3,20 @@ package easv.mrs.DAL.db;
 import easv.mrs.BE.Movie;
 import easv.mrs.DAL.IMovieDataAccess;
 
-<<<<<<< Updated upstream
-=======
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
->>>>>>> Stashed changes
 import java.util.List;
 
 public class MovieDAO_DB implements IMovieDataAccess {
 
     private MyDatabaseConnector databaseConnector;
 
-    public MovieDAO_DB() {
+    public MovieDAO_DB() throws IOException {
         databaseConnector = new MyDatabaseConnector();
     }
 
     public List<Movie> getAllMovies() throws Exception {
-<<<<<<< Updated upstream
-
-        //TODO Do this
-        throw new UnsupportedOperationException();
-    }
-
-    public Movie createMovie(Movie movie) throws Exception {
-        //TODO Do this
-        throw new UnsupportedOperationException();
-    }
-
-    public void updateMovie(Movie movie) throws Exception {
-        //TODO Do this
-        throw new UnsupportedOperationException();
-    }
-
-    public void deleteMovie(Movie movie) throws Exception {
-        //TODO Do this
-        throw new UnsupportedOperationException();
-    }
-
-    public List<Movie> searchMovies(String query) throws Exception {
-
-        //TODO Do this
-        throw new UnsupportedOperationException();
-    }
-
-=======
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try (Connection conn = databaseConnector.getConnection();
@@ -123,5 +92,4 @@ public class MovieDAO_DB implements IMovieDataAccess {
             //TODO Do this
             throw new UnsupportedOperationException();
         }
->>>>>>> Stashed changes
 }
