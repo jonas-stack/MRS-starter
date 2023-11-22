@@ -1,8 +1,10 @@
 package easv.mrs.DAL.db;
 
+// Project imports
 import easv.mrs.BE.Movie;
 import easv.mrs.DAL.IMovieDataAccess;
 
+// Java imports
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,10 +19,12 @@ public class MovieDAO_DB implements IMovieDataAccess {
     }
 
     public List<Movie> getAllMovies() throws Exception {
+
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try (Connection conn = databaseConnector.getConnection();
-             Statement stmt = conn.createStatement()) {
+             Statement stmt = conn.createStatement())
+        {
             String sql = "SELECT * FROM dbo.Movie;";
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -37,59 +41,105 @@ public class MovieDAO_DB implements IMovieDataAccess {
             }
             return allMovies;
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             ex.printStackTrace();
             throw new Exception("Could not get movies from database", ex);
         }
+
+
+        //TODO Do this
+        //throw new UnsupportedOperationException();
     }
 
+    public Movie createMovie(Movie movie) throws Exception {
 
-        public Movie createMovie (Movie movie) throws Exception {
-            String sql = "INSERT INTO dbo.Movie (Title,Year) VALUES (?,?);";
+        // SQL command
+        String sql = "INSERT INTO dbo.Movie (Title,Year) VALUES (?,?);";
 
-            try (Connection conn = databaseConnector.getConnection()) {
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
+        {
+            // Bind parameters
+            stmt.setString(1,movie.getTitle());
+            stmt.setInt(2, movie.getYear());
 
-                // Bind parameters
-                stmt.setString(1,movie.getTitle());
-                stmt.setInt(2, movie.getYear());
+            // Run the specified SQL statement
+            stmt.executeUpdate();
 
-                // Run the specified SQL statement
-                stmt.executeUpdate();
+            // Get the generated ID from the DB
+            ResultSet rs = stmt.getGeneratedKeys();
+            int id = 0;
 
-                // Get the generated ID from the DB
-                ResultSet rs = stmt.getGeneratedKeys();
-                int id = 0;
-
-                if (rs.next()) {
-                    id = rs.getInt(1);
-                }
-
-                // Create movie object and send up the layers
-                Movie createdMovie = new Movie(id, movie.getYear(), movie.getTitle());
-
-                return createdMovie;
+            if (rs.next()) {
+                id = rs.getInt(1);
             }
-            catch (SQLException ex)
-            {
-                ex.printStackTrace();
-                throw new Exception("Could not create movie", ex);
-            }
+
+            // Create movie object and send up the layers
+            Movie createdMovie = new Movie(id, movie.getYear(), movie.getTitle());
+
+            return createdMovie;
         }
 
-        public void updateMovie (Movie movie) throws Exception {
-            //TODO Do this
-            throw new UnsupportedOperationException();
+        catch (SQLException ex)
+        {
+            // create entry in log file
+            ex.printStackTrace();
+            throw new Exception("Could not create movie", ex);
         }
 
-        public void deleteMovie (Movie movie) throws Exception {
-            //TODO Do this
-            throw new UnsupportedOperationException();
-        }
+    }
 
-        public List<Movie> searchMovies (String query) throws Exception {
+    public void updateMovie(Movie movie) throws Exception {
 
-            //TODO Do this
-            throw new UnsupportedOperationException();
+        // SQL command
+        String sql = "UPDATE dbo.Movie SET Title = ?, Year = ? WHERE ID = ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            // Bind parameters
+            stmt.setString(1,movie.getTitle());
+            stmt.setInt(2, movie.getYear());
+            stmt.setInt(3, movie.getId());
+
+            // Run the specified SQL statement
+            stmt.executeUpdate();
         }
+        catch (SQLException ex)
+        {
+            // create entry in log file
+            ex.printStackTrace();
+            throw new Exception("Could not update movie", ex);
+        }
+    }
+
+    public void deleteMovie(Movie movie) throws Exception {
+        // SQL command
+        String sql = "DELETE FROM dbo.Movie WHERE ID = ?;";
+
+        try (Connection conn = databaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            // Bind parameters
+            stmt.setInt(1, movie.getId());
+
+            // Run the specified SQL statement
+            stmt.executeUpdate();
+        }
+        catch (SQLException ex)
+        {
+            // create entry in log file
+            ex.printStackTrace();
+            throw new Exception("Could not delete movie", ex);
+        }
+    }
+
+    public List<Movie> searchMovies(String query) throws Exception {
+
+        //TODO Do this
+        throw new UnsupportedOperationException();
+    }
+
 }

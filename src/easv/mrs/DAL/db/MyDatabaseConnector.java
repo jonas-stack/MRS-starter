@@ -14,8 +14,9 @@ import java.util.Properties;
 
 public class MyDatabaseConnector {
 
-    private static final String PROP_FILE = "config/config.settings";
+
     //Class will easv.mrs.be included when we start working on DATABASES
+    private static final String PROP_FILE = "config/config.settings";
 
     private SQLServerDataSource dataSource;
 
@@ -36,18 +37,20 @@ public class MyDatabaseConnector {
         return dataSource.getConnection();
     }
 
+    /* Testing purposes...
 
     public static void main(String[] args) throws SQLException, IOException {
 
         MyDatabaseConnector databaseConnector = new MyDatabaseConnector();
 
         try (Connection connection = databaseConnector.getConnection()) {
-
             System.out.println("Is it open? " + !connection.isClosed());
-
         } //Connection gets closed here
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    */
+
+
 }
